@@ -137,3 +137,5 @@ semantic_ui/
 
 # Archivos de visual studio code
 .vscode/
+
+manage.py
