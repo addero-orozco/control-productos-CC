@@ -17,7 +17,7 @@ class Venta(models.Model):
                             verbose_name='Usuario',
                             on_delete=models.CASCADE)
     comprador   = models.CharField(
-                            max_length=10,
+                            max_length=79,
                             blank=False,
                             null=False)
     total       = models.DecimalField(
@@ -26,16 +26,16 @@ class Venta(models.Model):
                             default=DECIMAL_CERO)
 
 class Detalle(models.Model):
-    venta      = models.ForeignKey(
+    venta       = models.ForeignKey(
                             Venta,
                             on_delete=models.PROTECT,
                             null=False)
     producto    = models.ForeignKey(
-                            Venta,
+                            Producto,
                             related_name='detalles',
                             null=False,
                             blank=False,
-                            verbose_name='Venta',
+                            verbose_name='Producto',
                             on_delete=models.CASCADE)
     subtotal    = models.DecimalField(
                             max_digits=8,
