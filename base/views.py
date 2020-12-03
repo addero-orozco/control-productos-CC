@@ -1,5 +1,7 @@
 from django.shortcuts import render, redirect
 from .forms import UserForm, UserPerfilForm
+from django.contrib.auth import authenticate, login
+from django.http import HttpResponse
 
 
 def registro(request):
@@ -32,3 +34,22 @@ def registro(request):
     }
 
     return render(request, template, context)
+
+def user_login(request):
+    template = 'base/login.html'
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+
+        user = authenticate(username=username, password=password)
+
+        if user:
+            if user.is_active:
+                login(request, user)
+                return HttpResponse("estas adentroooooooooooooooo.")
+            else:
+                return HttpResponse("Your Rango account is disabled.")
+        else:
+            return HttpResponse("Invalid login details supplied.")
+    else:
+        return render(request, template)
