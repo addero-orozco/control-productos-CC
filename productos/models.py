@@ -30,3 +30,6 @@ class Producto(models.Model):
                             blank=False,
                             verbose_name='Usuario',
                             on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.nombre

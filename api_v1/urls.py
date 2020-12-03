@@ -13,8 +13,6 @@ router.register(r'ventas', ventas.VentaViewSet)
 router.register(r'detalles', ventas.DetalleViewSet)
 
 urlpatterns_no_suffix = [
-    ##path('', productos.api_root, name="root"),
-    ##path('productos/', productos.ProductoAPIView.as_view(), name='productos'),
 ]
 
 urlpatterns_no_suffix = format_suffix_patterns(urlpatterns_no_suffix)

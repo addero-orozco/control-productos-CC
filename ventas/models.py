@@ -25,6 +25,10 @@ class Venta(models.Model):
                             decimal_places=2,
                             default=DECIMAL_CERO)
 
+    def __str__(self):
+        return str(self.id)
+
+
 class Detalle(models.Model):
     venta       = models.ForeignKey(
                             Venta,
