@@ -23,7 +23,7 @@
                 </span> -->
                 <span>
                     <i class="handshake outline icon"></i>
-                    {{catalogo.productos.length}} productos en existencia
+                    {{catalogo.productos.length}} productos
                 </span>
                 </div>
             </div>

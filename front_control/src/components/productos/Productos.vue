@@ -22,7 +22,7 @@
                 </div>
                 <div class="extra content">
                 <div class="ui two buttons">
-                    <div class="ui green button" v-if="producto.cantidad > 0">Comprar</div>
+                    <div class="ui green button" v-if="producto.cantidad > 0" @click="agregar_carrito(producto.id)">Comprar</div>
                     <div class="ui basic red button" v-else>Sin existencias</div>
                 </div>
                 </div>
@@ -61,6 +61,9 @@ export default {
         ver_accion(id_vendedor) {
             alert(id_vendedor)
             this.$emit('clic_boton', 'Productos', id_vendedor)
+        },
+        agregar_carrito(idProducto) {
+            store.dispatch('sistema_control/agregarCarrito', idProducto)
         }
     }
 }

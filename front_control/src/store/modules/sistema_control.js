@@ -9,6 +9,7 @@ export const state = {
     catalogos: [],
     productos: [],
     idVendedor: 0,
+    carrito: []
 }
 
 export const getters = {
@@ -23,6 +24,9 @@ export const mutations = {
     },
     SET_ID_VENDEDOR(state, idVendedor) {
         state.idVendedor = idVendedor
+    },
+    SET_CARRITO(state, carrito) {
+        state.carrito = carrito
     }
 }
 
@@ -44,5 +48,11 @@ export const actions = {
                 console.log(response)
                 commit('SET_PRODUCTOS', response.resultados)
             })
+    },
+    // eslint-disable-next-line
+    agregarCarrito({ commit, dispatch, state }, idProducto) {
+        let nuevo_carrito = state.carrito
+        nuevo_carrito.push(idProducto)
+        commit('SET_CARRITO', nuevo_carrito)
     },
 }
