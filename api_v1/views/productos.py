@@ -5,18 +5,14 @@ from rest_framework.permissions import IsAuthenticated
 
 
 from productos.models import Producto
-from api_v1.serializers.productos import ProductoSerializer
+from api_v1.serializers.productos import ProductoSerializer, VendedoresCatalogoSerializer
 
-
+from rest_framework.views import APIView
 from rest_framework.decorators import api_view
 from rest_framework.reverse import reverse
 
-
-# @api_view(['GET'])
-# def api_root(request, format=None):
-#     return Response({
-#         'productos': reverse('api_v1:productos', request=request, format=format),
-#     })
+from django.contrib.auth import get_user_model
+User = get_user_model()
 
 
 class ProductoViewSet(
@@ -26,6 +22,7 @@ class ProductoViewSet(
             mixins.RetrieveModelMixin,
             mixins.UpdateModelMixin,
             mixins.DestroyModelMixin):
+    """Endpoints para listar, crear y recuperar Producto"""
     queryset = Producto.objects.all().order_by('id')
     serializer_class = ProductoSerializer
 
@@ -35,4 +32,22 @@ class ProductoViewSet(
         lookup_field = 'id'
         queryset = self.filter_queryset(self.get_queryset())
         serializer = self.get_serializer(queryset, many=True)
+        return Response({'resultados': serializer.data})
+
+
+class CatalogosVendedoresViews(APIView):
+    """Endpoint para obtener los catalogos de produtos
+    por Vendedor"""
+    def get(self, request, format = None):
+        vendedores = User.objects.all()
+        serializer = VendedoresCatalogoSerializer(vendedores, many = True)
+        return Response({'resultados': serializer.data})
+
+class VendedorCatalogoViews(APIView):
+    """Endpoint para obtener el catalogo del vendedor"""
+    def get(self, request, format = None):
+        vendedor = self.request.user
+        print(vendedor)
+        producto = Producto.objects.filter(usuario=vendedor)
+        serializer = ProductoSerializer(vendedores, many = True)
         return Response({'resultados': serializer.data})
