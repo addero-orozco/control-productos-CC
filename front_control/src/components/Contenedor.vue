@@ -6,6 +6,7 @@
                     <a class="item" @click="componente='Catalogo'">Catalogos</a>
                     <a class="item">Productos</a>
                     <a class="item">Reportes</a>
+                    <a class="item" @click="componente='Carrito'">Carrito</a>
                 </div>
             </div>
         </div>
@@ -21,12 +22,14 @@
 
 import Catalogo from '@/components/productos/Catalogo'
 import Productos from '@/components/productos/Productos'
+import Carrito from '@/components/ventas/Carrito'
 
 export default {
     name: 'Contenedor-principal',
     components: {
         Catalogo,
-        Productos
+        Productos,
+        Carrito
     },
     props: {
         msg: String

@@ -1,10 +1,9 @@
 <template>
     <div class="contenedor">
-
         <a class="item">
             <i class="arrow left icon"></i>Regresar
         </a>
-        <h2 class="ui lefth header">Productos</h2>
+        <h2 class="ui lefth header">Productos del carrito</h2>
 
         <div class="ui cards">
             <div class="card" v-for="producto in productos" :key="producto.id">
@@ -22,13 +21,12 @@
                 </div>
                 <div class="extra content">
                 <div class="ui two buttons">
-                    <div class="ui green button" v-if="producto.cantidad > 0" @click="agregar_carrito(producto)">Comprar</div>
-                    <div class="ui basic red button" v-else>Sin existencias</div>
+                    <div class="ui basic red button" @click="quitar_carrito(producto.id)">Quitar</div>
                 </div>
                 </div>
             </div>
         </div>
-        <MensajePositivo v-show="mostrando_mensaje == true"/>
+        <MensajeAdvertencia v-show="mostrando_mensaje == true"/>
     </div>
 </template>
 
@@ -37,36 +35,30 @@
 import { mapState } from 'vuex'
 import store from '@/store/index'
 
-import MensajePositivo from '@/components/MensajePositivo'
+import MensajeAdvertencia from '@/components/MensajeAdvertencia'
 
 export default {
-    name: 'Productos',
+    name: 'Carrito',
     components: {
-        MensajePositivo
+        MensajeAdvertencia
     },
-    props: {
-        accion: Number
-	},
     data() {
         return {
             mostrando_mensaje: false
         }
     },
     beforeMount() {
-        store.dispatch('sistema_control/obtenerProductos',this.accion)
+        //store.dispatch('sistema_control/obtenerProductos',this.accion)
     },
     computed: {
         ...mapState(['sistema_control']),
         productos () {
-            return this.sistema_control.productos
+            return this.sistema_control.carrito
         }
     },
     methods: {
-        ver_accion(id_vendedor) {
-            this.$emit('clic_boton', 'Productos', id_vendedor)
-        },
-        agregar_carrito(producto) {
-            store.dispatch('sistema_control/agregarCarrito', producto)
+        quitar_carrito(idProducto) {
+            store.dispatch('sistema_control/quitarCarrito', idProducto)
             this.mostrando_mensaje = true
             setTimeout(() => this.mostrando_mensaje = false, 2000)
         },

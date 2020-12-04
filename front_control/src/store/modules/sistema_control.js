@@ -8,7 +8,6 @@ export const state = {
     // eslint-disable-next-line
     catalogos: [],
     productos: [],
-    idVendedor: 0,
     carrito: []
 }
 
@@ -22,11 +21,16 @@ export const mutations = {
     SET_PRODUCTOS(state, productos) {
         state.productos = productos
     },
-    SET_ID_VENDEDOR(state, idVendedor) {
-        state.idVendedor = idVendedor
+    SET_CARRITO(state, producto) {
+        state.carrito.push(producto)
     },
-    SET_CARRITO(state, carrito) {
-        state.carrito = carrito
+    SET_QUITAR_CARRITO(state, idProducto) {
+        state.carrito = state.carrito.filter(producto => {
+            return producto.id !=idProducto
+        })
+    },
+    SET_LIMPIAR_CARRITO(state) {
+        state.carrito = []
     }
 }
 
@@ -41,8 +45,8 @@ export const actions = {
             })
     },
     // eslint-disable-next-line
-    async obtenerProductos({ commit, dispatch, state }) {
-        return await apiServiceNimd.getProductosCatalogo(state.idVendedor)
+    async obtenerProductos({ commit, dispatch, state }, idVendedor) {
+        return await apiServiceNimd.getProductosCatalogo(idVendedor)
             .then(response => {
                 // eslint-disable-next-line
                 console.log(response)
@@ -50,9 +54,15 @@ export const actions = {
             })
     },
     // eslint-disable-next-line
-    agregarCarrito({ commit, dispatch, state }, idProducto) {
-        let nuevo_carrito = state.carrito
-        nuevo_carrito.push(idProducto)
-        commit('SET_CARRITO', nuevo_carrito)
+    agregarCarrito({ commit, dispatch, state }, producto) {
+        commit('SET_CARRITO', producto)
+    },
+    // eslint-disable-next-line
+    quitarCarrito({ commit, dispatch, state }, idProducto) {
+        commit('SET_QUITAR_CARRITO', idProducto)
+    },
+    // eslint-disable-next-line
+    limpiarCarrito({ commit, dispatch, state }) {
+        commit('SET_CARRITO')
     },
 }
