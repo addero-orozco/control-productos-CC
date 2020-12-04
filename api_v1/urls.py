@@ -15,6 +15,7 @@ router.register(r'detalles', ventas.DetalleViewSet)
 urlpatterns_no_suffix = [
     path('catalogos/', productos.CatalogosVendedoresViews.as_view(), name='catalogos'),
     path('catalogo-vendedor/', productos.VendedorCatalogoViews.as_view(), name='catalogo-vendedor'),
+    path('productos-catalogo/<int:id_vendedor>/', productos.ProductosVendedorViews.as_view(), name='productos-catalogo'),
 ]
 
 urlpatterns_no_suffix = format_suffix_patterns(urlpatterns_no_suffix)

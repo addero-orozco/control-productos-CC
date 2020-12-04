@@ -1,10 +1,10 @@
 <template>
     <div class="contenedor">
 
-
+        <h2 class="ui lefth header">Catálogos de productos</h2>
 
         <div class="ui link cards">
-            <div v-for="catalogo in catalogos" :key="catalogo.id" class="card">
+            <div v-for="catalogo in catalogos" :key="catalogo.id" class="card" @click="ver_accion(catalogo.id)">
                 <div class="image">
                 <!--<img src="/images/avatar2/large/matthew.png"> -->
                 </div>
@@ -46,7 +46,6 @@ export default {
     },
     data() {
         return {
-            proyecto: 0,
         }
     },
     beforeMount() {
@@ -58,15 +57,10 @@ export default {
             return this.sistema_control.catalogos
         }
     },
-    watch: {
-        /*fecha_inicial: {
-            immediate: true,
-            handler() {
-                store.commit('sistema_control/SET_FILTRO_ENCA_F_INICIAL', this.fecha_inicial)
-            }
-        }*/
-    },
     methods: {
+        ver_accion(id_vendedor) {
+            this.$emit('clic_boton', 'Productos', id_vendedor)
+        }
     }
 }
 </script>

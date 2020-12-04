@@ -48,10 +48,20 @@ class CatalogosVendedoresViews(APIView):
 
 
 class VendedorCatalogoViews(APIView):
-    """Endpoint para obtener el catalogo del vendedor"""
+    """Endpoint para obtener el catalogo del propio vendedor"""
     def get(self, request, format = None):
         vendedor = request.user
         print(vendedor)
         producto = Producto.objects.filter(usuario=vendedor)
-        serializer = ProductoSerializer(vendedores, many = True)
+        serializer = ProductoSerializer(producto, many = True)
+        return Response({'resultados': serializer.data})
+
+
+class ProductosVendedorViews(APIView):
+    """Endpoint para obtener todos los productos de un vendedor"""
+    def get(self, request, id_vendedor,format = None):
+        vendedor = request.user
+        print(vendedor)
+        producto = Producto.objects.filter(usuario__id=id_vendedor)
+        serializer = ProductoSerializer(producto, many = True)
         return Response({'resultados': serializer.data})

@@ -10,9 +10,15 @@ export class APIServiceNimd {
 
     }
 
-    // 1. OBTENER PROYECTOS
+    /* Obtener todos los catalogos de los vendedores*/
     getCatalogos() {
         const url = `/api/v1/catalogos/`
+        return axios.get(url, headers).then(response => response.data);
+    }
+
+    /* Obtener todos los productos del catalogo del vendedor*/
+    getProductosCatalogo(idVendedor) {
+        const url = `/api/v1/productos-catalogo/${idVendedor}/`
         return axios.get(url, headers).then(response => response.data);
     }
 
