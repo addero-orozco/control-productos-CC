@@ -1,15 +1,18 @@
-from rest_framework import viewsets, mixins
+from rest_framework.authentication import SessionAuthentication, BasicAuthentication
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.exceptions import PermissionDenied, NotFound
 from rest_framework.permissions import IsAuthenticated
+
+from rest_framework import viewsets, mixins
+from rest_framework.views import APIView
+from rest_framework.decorators import api_view
+from rest_framework.reverse import reverse
 
 
 from productos.models import Producto
 from api_v1.serializers.productos import ProductoSerializer, VendedoresCatalogoSerializer
 
-from rest_framework.views import APIView
-from rest_framework.decorators import api_view
-from rest_framework.reverse import reverse
 
 from django.contrib.auth import get_user_model
 User = get_user_model()
@@ -43,10 +46,11 @@ class CatalogosVendedoresViews(APIView):
         serializer = VendedoresCatalogoSerializer(vendedores, many = True)
         return Response({'resultados': serializer.data})
 
+
 class VendedorCatalogoViews(APIView):
     """Endpoint para obtener el catalogo del vendedor"""
     def get(self, request, format = None):
-        vendedor = self.request.user
+        vendedor = request.user
         print(vendedor)
         producto = Producto.objects.filter(usuario=vendedor)
         serializer = ProductoSerializer(vendedores, many = True)

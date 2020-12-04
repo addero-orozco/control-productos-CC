@@ -16,6 +16,8 @@ class Producto(models.Model):
                             max_digits=8,
                             decimal_places=2,
                             default=DECIMAL_CERO)
+    cantidad    = models.IntegerField(
+                            default=0)
     imagen      = models.ImageField(
                             upload_to='productos_images',
                             blank=True)
