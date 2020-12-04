@@ -37,6 +37,10 @@
         }
         #desktop_bar {
             padding-top: 3.7em;
+            color: white;
+        }
+        #mobile_bar {
+            color: white;
         }
         #main_content {
             padding-left: 16em;
@@ -79,14 +83,7 @@
 </head>
 <body>
 
-        <div id="mobile_bar" class="ui left inverted vertical menu sidebar">
-            {% comment %} <a href="{% url 'compras:lista-proveedores' %}" class="item">Proveedores</a>
-            <a href="{% url 'productos:lista-medidas' %}" class="item">Medidas</a>
-            <a href="{% url 'compras:lista-ordenes-compra' %}" class="item">Ordenes de Compra</a>
-            <a href="{% url 'compras:lista-compras' %}" class="item">Compras</a>
-            <a href="{% url 'productos:lista-producto' %}" class="item">Productos</a>
-            <a href="{% url 'frontend:inicio' %}" class="item">Punto de Venta</a> {% endcomment %}
-        </div>
+
 
         <div id="desktop_menu" class="ui top fixed inverted massive menu">
             {% comment %} <a href="{% url 'dashboard' %}" class="item">MeLatte</a> {% endcomment %}
@@ -95,6 +92,9 @@
                     {{ user.get_username }} <i class="dropdown icon"></i>
                     <div class="menu">
                         {% comment %} <a class="item" href="{% url 'logout' %}">Cerrar sesión</a> {% endcomment %}
+                        <a class="item" href="">Ingresar</a>
+                        <a class="item" href="">Registrarse</a>
+                        <a class="item" href="">Cerrar sesión</a>
                     </div>
                 </div>
             </div>
@@ -104,15 +104,7 @@
             <a id="mobile_menu_button" class="item"><i class="bars icon"></i></a>
         </div>
 
-        <div class="pusher">
-            <div id="desktop_bar" class="ui left fixed inverted vertical menu">
-                {% comment %} <a href="{% url 'compras:lista-proveedores' %}" class="item">Proveedores</a>
-                <a href="{% url 'productos:lista-medidas' %}" class="item">Medidas</a>
-                <a href="{% url 'compras:lista-ordenes-compra' %}" class="item">Ordenes de Compra</a>
-                <a href="{% url 'compras:lista-compras' %}" class="item">Compras</a>
-                <a href="{% url 'productos:lista-producto' %}" class="item">Productos</a>
-                <a href="{% url 'frontend:inicio' %}" class="item">Punto de Venta</a> {% endcomment %}
-            </div>
+
 
             <div id="main_content">
                 <div class="ui main container">
@@ -120,20 +112,6 @@
                     {% endblock %}
                 </div>
 
-                <div class="ui vertical footer segment">
-                    <div class="ui container">
-                        <div class="ui stackable  divided equal height stackable grid">
-                            <div class="five wide column">
-                                <h4 class="ui  header">Acerca de</h4>
-                                <div class="ui  link list">
-                                    <a href="#" class="item">Derechos exclusivos Café MeLatte - 2019.</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
 
   <script type="text/javascript">
       $('#mobile_bar').first()
