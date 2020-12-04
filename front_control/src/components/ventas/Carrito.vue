@@ -6,7 +6,7 @@
         <h2 class="ui lefth header">Productos del carrito</h2>
 
         <div class="ui cards">
-            <div class="card" v-for="producto in productos" :key="producto.id">
+            <div class="card" v-for="(producto, index) in productos" :key="producto.id">
                 <div class="content">
                 <img class="right floated mini ui image" src="/images/avatar/large/elliot.jpg">
                 <div class="header">
@@ -21,7 +21,7 @@
                 </div>
                 <div class="extra content">
                 <div class="ui two buttons">
-                    <div class="ui basic red button" @click="quitar_carrito(producto.id)">Quitar</div>
+                    <div class="ui basic red button" @click="quitar_carrito(index)">Quitar</div>
                 </div>
                 </div>
             </div>
@@ -57,8 +57,8 @@ export default {
         }
     },
     methods: {
-        quitar_carrito(idProducto) {
-            store.dispatch('sistema_control/quitarCarrito', idProducto)
+        quitar_carrito(index) {
+            store.dispatch('sistema_control/quitarCarrito', index)
             this.mostrando_mensaje = true
             setTimeout(() => this.mostrando_mensaje = false, 2000)
         },

@@ -6,7 +6,7 @@
                     <a class="item" @click="componente='Catalogo'">Catalogos</a>
                     <a class="item">Productos</a>
                     <a class="item">Reportes</a>
-                    <a class="item" @click="componente='Carrito'">Carrito</a>
+                    <a class="item" @click="componente='Carrito'">Carrito ({{productosCarrito}})</a>
                 </div>
             </div>
         </div>
@@ -19,6 +19,8 @@
 </template>
 
 <script>
+
+import { mapState } from 'vuex'
 
 import Catalogo from '@/components/productos/Catalogo'
 import Productos from '@/components/productos/Productos'
@@ -38,6 +40,12 @@ export default {
         return {
             componente: 'Catalogo',
             accion: undefined,
+        }
+    },
+    computed: {
+        ...mapState(['sistema_control']),
+        productosCarrito () {
+            return this.sistema_control.carrito.length
         }
     },
     methods: {

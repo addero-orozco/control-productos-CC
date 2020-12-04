@@ -24,10 +24,8 @@ export const mutations = {
     SET_CARRITO(state, producto) {
         state.carrito.push(producto)
     },
-    SET_QUITAR_CARRITO(state, idProducto) {
-        state.carrito = state.carrito.filter(producto => {
-            return producto.id !=idProducto
-        })
+    SET_QUITAR_CARRITO(state, index) {
+        state.carrito.splice(state.carrito.indexOf(index), 1);
     },
     SET_LIMPIAR_CARRITO(state) {
         state.carrito = []
@@ -58,8 +56,8 @@ export const actions = {
         commit('SET_CARRITO', producto)
     },
     // eslint-disable-next-line
-    quitarCarrito({ commit, dispatch, state }, idProducto) {
-        commit('SET_QUITAR_CARRITO', idProducto)
+    quitarCarrito({ commit, dispatch, state }, index) {
+        commit('SET_QUITAR_CARRITO', index)
     },
     // eslint-disable-next-line
     limpiarCarrito({ commit, dispatch, state }) {
