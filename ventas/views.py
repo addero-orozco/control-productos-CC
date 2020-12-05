@@ -1,3 +1,10 @@
 from django.shortcuts import render
 
-# Create your views here.
+
+def dashboard(request):
+    template = 'ventas/dashboard.html'
+
+    context = {
+    }
+
+    return render(request, template, context)

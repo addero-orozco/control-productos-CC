@@ -16,9 +16,12 @@ class Producto(models.Model):
                             max_digits=8,
                             decimal_places=2,
                             default=DECIMAL_CERO)
+    cantidad    = models.IntegerField(
+                            default=0)
     imagen      = models.ImageField(
                             upload_to='productos_images',
-                            blank=True)
+                            blank=True,
+                            null=True)
     descripcion = models.TextField(
                             default=' ',
                             blank=True,
@@ -30,6 +33,16 @@ class Producto(models.Model):
                             blank=False,
                             verbose_name='Usuario',
                             on_delete=models.CASCADE)
+    activo      = models.BooleanField(
+                            default=True)
 
     def __str__(self):
         return self.nombre
+
+    def descontar(self):
+        self.cantidad -= 1
+        self.save()
+
+    def desactivar(self):
+        self.activo = False
+        self.save()

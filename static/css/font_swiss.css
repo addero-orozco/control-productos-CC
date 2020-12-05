@@ -1,0 +1,14 @@
+* {
+    font-family: Swiss721BT-Light;
+    /* font-weight: normal;
+    font-style: normal; */
+}
+h1, h2, h3, h4, h5, h6 {
+  font-family: Swiss721BT-Light;
+}
+.ui.header {
+  font-family: Swiss721BT-Light;
+}
+.ui.button {
+  font-family: Swiss721BT-Light;
+}

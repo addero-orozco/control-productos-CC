@@ -1,0 +1,15 @@
+{% extends 'base/base.html' %}
+{% load render_bundle from webpack_loader %}
+
+
+{% block contenido %}
+
+<script type="text/javascript">
+    var csrftoken = getCookieValue('csrftoken');
+</script>
+
+    <div class="ui text container">
+        <div id="app"></div>
+        {% render_bundle 'app' config='FRONT_CONTROL' %}
+    </div>
+{% endblock %}

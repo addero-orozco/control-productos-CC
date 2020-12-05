@@ -1,0 +1,164 @@
+.extra.content.proyecto {
+    background-color: #ECEAEA; /* anaranjado NIMD */
+}
+.ui.menu.acciones {
+    background-color: #DFE0E0; /* gris fondo forms */ 
+}
+.item.direcciones {
+    font-size: 0.8rem;
+}
+
+.ui.small.basic.icon.buttons.acciones {
+    color: #DFE0E0;
+    background-color: #148959; /* gris NIMD */ 
+}
+.icon.accion {
+    color: #000000;
+}
+
+.nimd__footer_image {
+    width: 250px;
+}
+.nimd__footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    padding: 20px;
+}
+.nimd__go_top {
+    position: absolute;
+    right: 0;
+    padding-right: 5px;
+}
+.nimd__link_text_go_top {
+    display: none;
+}
+.nimd__buttons_layout {
+    width: 100%;
+    margin: 10px;
+}
+.ui.button.nimd__group_button {
+    margin: 6px;
+}
+.main.container {
+    margin-top: 5em;
+}
+.footer.segment {
+    padding: 2em 0em;
+}
+.ui.vertical.footer.segment {
+    border-top: 1px solid #DDDDDD;
+    margin-top: 5em;
+}
+.ui.main.container {
+    /* min-height: 36em; */
+    margin-bottom: 10px;
+}
+#desktop_bar {
+    padding-top: 3.7em;
+}
+#main_content {
+    padding-left: 16em;
+    min-height: 80vh;
+}
+div.nimd__btns_marco_logico {
+    display: inline;
+}
+@media only screen and (max-width: 700px) {
+    .footer.segment {
+        padding: 1em 0em;
+    }
+}
+@media only screen and (min-width: 1024px) {
+    #main_menu {
+        display: none;
+    }
+}
+@media only screen and (max-width: 1023px) {
+    #desktop_bar {
+        display: none;
+    }
+    #main_content {
+        padding-left: 0;
+    }
+    .ui.simple.dropdown.item {
+        padding: 7px;
+    }
+    div.nimd__btns_marco_logico {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        justify-content: flex-end;
+    }
+}
+@media only screen and (min-width: 426px) {
+    .nimd__footer_image {
+        width: 300px;
+    }
+    .nimd__link_text_go_top {
+        display: inline-block;
+    }
+    .nimd__link_icon_go_top {
+        display: inline-block;
+    }
+    .ui.button.nimd__group_button {
+        margin: 3px;
+    }
+}
+
+.ui.menu .item>i.icon.nimd__icon {
+    margin-right: 0;
+}
+.bell.icon.nimd__icon {
+    position: relative;
+}
+#mobileNotificationsCount {
+    position: absolute;
+    top: 5px;
+    right: 3px;
+}
+#desktopNotificationsCount {
+    position: absolute;
+    top: 8px;
+    right: 10px;
+}
+.base-spacer {
+    margin: 1.5em;
+}
+.ui.inverted.vertical.footer.segment{
+    background-color: #FFFFFF;
+    color: rgb(0, 0, 0);
+}
+#desktop_menu, #desktop_bar {
+    background-color: #575759; /* GRIS NIMD */
+}
+#main_menu, #mobile_bar {
+    background-color: #575759; /* GRIS NIMD */
+}
+.ui.small.image.nimdLogo {
+    margin-left: 2.3em;
+    margin-top: 0.9em;
+}
+.ui.menu .item.mobile-menu {
+    padding: 1.5em 1.1em;
+}
+#mobile_bar {
+    margin-top: 50px !important;
+}
+
+.ui.menu .ui.dropdown .menu>.item.nimd__item_notificacion {
+    font-size: 14px !important;
+    border-top: 1px solid rgba(34,36,38,.15);
+}
+
+.ui.menu .ui.dropdown .menu>.item.nimd__item_notificacion.nimd__no_leido {
+    background: #F0F8FF !important;
+}
+
+ul.errorlist li {
+    color: #9f3a38;
+}
+
+
+
