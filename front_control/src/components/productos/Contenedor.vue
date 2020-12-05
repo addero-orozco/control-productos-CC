@@ -1,7 +1,7 @@
 <template>
     <div class="contenedor">
         <div class="ui secondary pointing menu">
-            <a class="item">
+            <a class="item"  @click="componente='ListaProductos'">
                 <i class="arrow left icon"></i>Regresar
             </a>
             <a class="active item" @click="componente='NuevoProducto'">
