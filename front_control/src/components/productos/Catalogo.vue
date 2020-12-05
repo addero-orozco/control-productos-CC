@@ -14,7 +14,7 @@
                     <a>Catalogo de productos</a>
                 </div>
                 <div class="description">
-                    Productos sobre -----
+                    
                 </div>
                 </div>
                 <div class="extra content">
