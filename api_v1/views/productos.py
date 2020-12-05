@@ -16,7 +16,7 @@ from rest_framework import status
 
 from productos.models import Producto
 from ventas.models import Venta, Detalle
-from api_v1.serializers.productos import ProductoSerializer, VendedoresCatalogoSerializer
+from api_v1.serializers.productos import ProductoSerializer, VendedoresCatalogoSerializer, ProductoEditarSerializer
 
 import json
 from decimal import Decimal
@@ -146,3 +146,12 @@ class ProductosViews(APIView):
         serializer.is_valid(raise_exception=True)
         serializer.save(usuario=request.user)
         return Response(status=status.HTTP_201_CREATED)
+
+    def put(self, request, id_producto, format = None):
+        producto = Producto.objects.get(pk=id_producto)
+        serializer = ProductoEditarSerializer(producto, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(status=status.HTTP_200_OK)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+

@@ -35,11 +35,15 @@ export class APIServiceNimd {
     }
 
     /* Desactivar de productos*/
+    confirmarEditarProducto(idProducto, datos) {
+        const url = `/api/v1/productos/${idProducto}/`
+        return axios.put(url, datos, headers).then(response => response.data);
+    }
     postNuevoProducto(datos) {
-        console.log(config)
         const url = `/api/v1/productos/`
         return axios.post(url, datos, config).then(response => response.data);
     }
+
 
     getDesactivarProducto(idProducto) {
         const url = `/api/v1/desactivar-producto/${idProducto}/`

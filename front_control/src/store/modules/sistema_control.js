@@ -71,7 +71,15 @@ export const actions = {
     },
 
     /* Comportamientos para los productos */
-
+    // eslint-disable-next-line
+    async edicionProductos({ commit, dispatch, state }, data) {
+        return await apiServiceNimd.confirmarEditarProducto(data.idProducto, data.datos)
+            .then(response => {
+                // eslint-disable-next-line
+                console.log(response)
+                //commit('SET_LIMPIAR_CARRITO')
+            })
+    },
     // eslint-disable-next-line
     async obtenerProductos({ commit, dispatch, state }, idVendedor) {
         return await apiServiceNimd.getProductosCatalogo(idVendedor)
@@ -99,6 +107,7 @@ export const actions = {
                 //commit('SET_CATALOGO_VENDEDOR', response.resultados)
             })
     },
+ 
 
     /* Comportamientos para el carrito de compras */
 

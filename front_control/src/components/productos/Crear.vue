@@ -58,7 +58,8 @@ export default {
        crear_producto() {
            var datos = {nombre:this.nombre,precio: this.precio,cantidad: this.cantidad,descripcion:this.descripcion, usuario:1}
             store.dispatch('sistema_control/crearProducto', datos)
-       }
+            this.$emit('clic_boton', 'ListaProductos')
+       },
     }
 }
 </script>

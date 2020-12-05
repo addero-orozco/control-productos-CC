@@ -20,12 +20,14 @@ import { mapState } from 'vuex'
 
 import ListaProductos from '@/components/productos/ListaProductos'
 import NuevoProducto from '@/components/productos/Crear'
+import ProductoEditar from '@/components/productos/ProductoEditar'
 
 export default {
     name: 'Contenedor-productos',
     components: {
         ListaProductos,
-        NuevoProducto
+        NuevoProducto,
+        ProductoEditar
     },
     props: {
         msg: String
@@ -44,7 +46,7 @@ export default {
     },
     methods: {
         cambiarComponente (componente, accion) {
-            this.componente = 'Productos'
+            this.componente = componente
             this.accion = accion
         },
     }

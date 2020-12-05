@@ -18,6 +18,17 @@ class ProductoSerializer(serializers.ModelSerializer):
             #'usuario',
         ]
 
+class ProductoEditarSerializer(serializers.ModelSerializer):
+    id = serializers.IntegerField(read_only=True)
+
+    class Meta:
+        model = Producto
+        fields = [
+            'id',
+            'nombre',
+            'precio',
+            'descripcion',
+        ]
 
 class VendedoresCatalogoSerializer(serializers.ModelSerializer):
     """Enlaza Vendedor con su Producto"""

@@ -18,7 +18,7 @@
                 </div>
                 <div class="extra content">
                 <div class="ui two buttons">
-                    <div class="ui editar button">Editar</div>
+                    <div class="ui editar button" @click="editar_producto(producto)">Editar</div>
                     <div class="ui orange button" @click="eliminar_producto(producto.id)">Eliminar</div>
                 </div>
                 </div>
@@ -52,6 +52,9 @@ export default {
     methods: {
        eliminar_producto(idProducto) {
            store.dispatch('sistema_control/desactivarProducto', idProducto)
+       },
+       editar_producto(producto) {
+           this.$emit('clic_boton', 'ProductoEditar', producto)
        }
     }
 }
