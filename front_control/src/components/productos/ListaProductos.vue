@@ -1,7 +1,7 @@
 <template>
     <div class="contenedor">
         <h2 class="ui lefth header">Mis productos</h2>
-
+        <MensajePositivo v-show="mensaje_confirmacion==true" :mensaje="mensaje" />
         <div class="ui cards">
             <div class="card" v-for="producto in productos" :key="producto.id">
                 <div class="content">
@@ -53,15 +53,19 @@ import { mapState } from 'vuex'
 import store from '@/store/index'
 
 import Modal from "@/components/Modal";
+import MensajePositivo from '@/components/MensajePositivo'
 
 export default {
     name: 'Catalogos-vendedor',
     components: {
-        Modal
+        Modal,
+        MensajePositivo
     },
     data() {
         return {
-            id_model_eliminar: 0
+            id_model_eliminar: 0,
+            mensaje_confirmacion: false,
+            texto: ''
         }
     },
     beforeMount() {
@@ -77,6 +81,11 @@ export default {
        eliminar_producto() {
            store.dispatch('sistema_control/desactivarProducto', this.id_model_eliminar)
            this.$refs.modalName.closeModal()
+
+           /* Mensaje de confirmación */
+            this.mensaje_confirmacion = true
+            this.mensaje = 'Producto eliminado con éxito'
+            setTimeout(() => this.mensaje_confirmacion = false, 3000)
        },
        editar_producto(producto) {
            this.$emit('clic_boton', 'ProductoEditar', producto)
