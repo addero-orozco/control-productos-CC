@@ -35,6 +35,7 @@
                 Confirmar compra
             </div>
             <div class="ui green button" @click="confirmar_compra()">Comprar</div>
+            <div class="ui orange button" @click="cancelar_carrito()">Cancelar</div>
         </div>
 
     </div>
@@ -79,6 +80,11 @@ export default {
             store.dispatch('sistema_control/confirmarCompra')
             this.mensaje_confirmacion = true
             setTimeout(() => this.mensaje_confirmacion = false, 5000)
+        },
+        cancelar_carrito() {
+            store.commit('sistema_control/SET_LIMPIAR_CARRITO')
+            //this.mensaje_confirmacion = true
+            //setTimeout(() => this.mensaje_confirmacion = false, 5000)
         },
     }
 }
