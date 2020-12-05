@@ -50,7 +50,12 @@ class CatalogosVendedoresViews(APIView):
     por Vendedor"""
     def get(self, request, format = None):
         usuario = request.user
-        vendedores = User.objects.all()
+        vendedores = None
+
+        if usuario.is_anonymous:
+            vendedores = User.objects.all()
+        else:
+            vendedores = User.objects.filter().exclude(pk=usuario.id)
         serializer = VendedoresCatalogoSerializer(vendedores, many = True)
         return Response({'resultados': serializer.data})
 
