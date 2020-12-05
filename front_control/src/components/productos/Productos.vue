@@ -9,7 +9,7 @@
         <div class="ui cards">
             <div class="card" v-for="producto in productos" :key="producto.id">
                 <div class="content">
-                <img class="right floated mini ui image" src="/images/avatar/large/elliot.jpg">
+                <!-- <img class="right floated mini ui image" src="/images/avatar/large/elliot.jpg"> -->
                 <div class="header">
                     {{producto.nombre}}
                 </div>

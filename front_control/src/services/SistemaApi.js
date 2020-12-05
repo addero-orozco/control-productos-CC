@@ -3,6 +3,8 @@ import axios from 'axios';
 
 const headers = { headers: { 'X-CSRFToken': csrftoken } }
 
+console.log(headers)
+
 const qs = require('qs');
 
 export class APIServiceNimd {
@@ -21,5 +23,12 @@ export class APIServiceNimd {
         const url = `/api/v1/productos-catalogo/${idVendedor}/`
         return axios.get(url, headers).then(response => response.data);
     }
+
+    /* Descontar de productos*/
+    descontarProductos(idProducto) {
+        const url = `/api/v1/productos-descontar/${idProducto}/`
+        return axios.get(url, headers).then(response => response.data);
+    }
+
 
 }

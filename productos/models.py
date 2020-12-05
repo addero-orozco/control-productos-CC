@@ -35,3 +35,7 @@ class Producto(models.Model):
 
     def __str__(self):
         return self.nombre
+
+    def descontar(self):
+        self.cantidad -= 1
+        self.save()

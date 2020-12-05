@@ -51,6 +51,9 @@ export const actions = {
                 commit('SET_PRODUCTOS', response.resultados)
             })
     },
+
+    /* Comportamientos para el carrito de compras */
+
     // eslint-disable-next-line
     agregarCarrito({ commit, dispatch, state }, producto) {
         commit('SET_CARRITO', producto)
@@ -60,7 +63,18 @@ export const actions = {
         commit('SET_QUITAR_CARRITO', index)
     },
     // eslint-disable-next-line
-    limpiarCarrito({ commit, dispatch, state }) {
+    /*limpiarCarrito({ commit, dispatch, state }) {
         commit('SET_CARRITO')
+    },*/
+    // eslint-disable-next-line
+    confirmarCompra({ commit, dispatch, state }) {
+        state.carrito.map(async productos => {
+            return await apiServiceNimd.descontarProductos(productos.id)
+                .then(response => {
+                    // eslint-disable-next-line
+                    console.log(response)
+                })
+        })
+        commit('SET_LIMPIAR_CARRITO')
     },
 }

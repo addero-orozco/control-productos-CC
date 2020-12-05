@@ -24,4 +24,3 @@ class VendedoresCatalogoSerializer(serializers.ModelSerializer):
             'first_name',
             'productos',
         ]
-
