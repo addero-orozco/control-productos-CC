@@ -1,7 +1,7 @@
 <template>
     <div class="contenedor">
         <h2 class="ui lefth header">Mis productos</h2>
-
+        <MensajePositivo v-show="mensaje_confirmacion==true" :mensaje="mensaje" />
         <div class="ui cards">
             <div class="card" v-for="producto in productos" :key="producto.id">
                 <div class="content">
@@ -19,11 +19,31 @@
                 <div class="extra content">
                 <div class="ui two buttons">
                     <div class="ui editar button" @click="editar_producto(producto)">Editar</div>
-                    <div class="ui orange button" @click="eliminar_producto(producto.id)">Eliminar</div>
+                    <div class="ui orange button" @click="abrir_modal(producto.id)">Eliminar</div>
                 </div>
                 </div>
             </div>
         </div>
+
+<!-- MODAL -->
+    <modal ref="modalName">
+      <template v-slot:header>
+        <h1>Eliminar producto</h1>
+      </template>
+
+      <template v-slot:body>
+        <p>Clic en confirmar.</p>
+      </template>
+
+      <template v-slot:footer>
+        <div>
+            <button class="ui orange button" @click="eliminar_producto()">Eliminar</button>
+            <button class="ui grey button" @click="$refs.modalName.closeModal()">Cancelar</button>
+        </div>
+      </template>
+    </modal>
+
+
     </div>
 </template>
 
@@ -32,12 +52,20 @@
 import { mapState } from 'vuex'
 import store from '@/store/index'
 
+import Modal from "@/components/Modal";
+import MensajePositivo from '@/components/MensajePositivo'
+
 export default {
     name: 'Catalogos-vendedor',
     components: {
+        Modal,
+        MensajePositivo
     },
     data() {
         return {
+            id_model_eliminar: 0,
+            mensaje_confirmacion: false,
+            texto: ''
         }
     },
     beforeMount() {
@@ -50,12 +78,29 @@ export default {
         }
     },
     methods: {
-       eliminar_producto(idProducto) {
-           store.dispatch('sistema_control/desactivarProducto', idProducto)
+       eliminar_producto() {
+           store.dispatch('sistema_control/desactivarProducto', this.id_model_eliminar)
+           this.$refs.modalName.closeModal()
+
+           /* Mensaje de confirmación */
+            this.mensaje_confirmacion = true
+            this.mensaje = 'Producto eliminado con éxito'
+            setTimeout(() => this.mensaje_confirmacion = false, 3000)
        },
        editar_producto(producto) {
            this.$emit('clic_boton', 'ProductoEditar', producto)
+       },
+       abrir_modal(id_producto){
+           this.id_model_eliminar = id_producto
+           this.$refs.modalName.openModal()
        }
     }
 }
 </script>
+
+/* MODAL */
+<style lang="scss">
+.overflow-hidden {
+  overflow: hidden;
+}
+</style>

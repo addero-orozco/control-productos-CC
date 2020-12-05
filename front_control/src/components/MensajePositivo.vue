@@ -1,8 +1,17 @@
 <template>
     <div class="ui positive message">
         <div class="header">
-            Agregado
+            Confirmado
         </div>
-        <p>Producto <b>agregado</b> al carrito.</p>
+        <p>{{mensaje}}.</p>
     </div>
 </template>
+
+<script>
+export default {
+    name: 'MensajePositivo',
+    props: {
+        mensaje: String
+	},
+}
+</script>

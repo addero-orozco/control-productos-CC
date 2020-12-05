@@ -4,7 +4,7 @@
         <h2 class="ui lefth header">Catálogos de productos</h2>
 
         <div class="ui link cards">
-            <div v-for="catalogo in catalogos" :key="catalogo.id" class="card" @click="ver_accion(catalogo.id)">
+            <div v-for="catalogo in catalogos" :key="catalogo.id" class="card" @click="ver_accion(catalogo)">
                 <div class="image">
                 <!--<img src="/images/avatar2/large/matthew.png"> -->
                 </div>
@@ -58,9 +58,11 @@ export default {
         }
     },
     methods: {
-        ver_accion(id_vendedor) {
-            store.commit('sistema_control/SET_ID_VENDEDOR', id_vendedor)
-            this.$emit('clic_boton', 'Productos', id_vendedor)
+        ver_accion(catalogo) {
+            if (catalogo.productos.length > 0) {
+                store.commit('sistema_control/SET_ID_VENDEDOR', catalogo.id)
+                this.$emit('clic_boton', 'Productos', catalogo.id)
+            }
         }
     }
 }
