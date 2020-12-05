@@ -1,5 +1,7 @@
 from django.db import transaction
 from django.shortcuts import get_object_or_404
+from django.db.models import Sum
+from django.db.models import Avg
 
 from rest_framework.authentication import SessionAuthentication, BasicAuthentication
 from rest_framework.permissions import IsAuthenticated
@@ -15,7 +17,9 @@ from rest_framework import status
 from productos.models import Producto
 from ventas.models import Venta, Detalle
 from api_v1.serializers.productos import ProductoSerializer, VendedoresCatalogoSerializer
+from api_v1.serializers.ventas import ReportePorProductoSerializer
 import json
+from decimal import Decimal
 
 from django.contrib.auth import get_user_model
 User = get_user_model()
@@ -45,8 +49,25 @@ class CatalogosVendedoresViews(APIView):
     """Endpoint para obtener los catalogos de produtos
     por Vendedor"""
     def get(self, request, format = None):
+        usuario = request.user
         vendedores = User.objects.all()
         serializer = VendedoresCatalogoSerializer(vendedores, many = True)
+
+        ##p=Sale.objects.all().values('item__category__name').order_by('item__category__name').annotate(total=Sum('quantity'))
+        p = Venta.objects.filter(usuario=usuario).aggregate(Avg('total'))
+        print("\n")
+        #print(p)
+        print("\n")
+        print("\n")
+        ventas = Venta.objects.filter(usuario=usuario)
+        #indicadores = Detalle.objects.select_related('producto').filter().order_by('id')
+        produ = Detalle.objects.all().filter(venta_id__in=ventas).values('producto__nombre').annotate(total=Sum('subtotal')).order_by('subtotal')
+        for pro in produ:
+            print(pro)
+        print("\n")
+        print("\n")
+        print("\n")
+
         return Response({'resultados': serializer.data})
 
 
@@ -68,25 +89,16 @@ class ProductosVendedorViews(APIView):
         serializer = ProductoSerializer(producto, many = True)
         return Response({'resultados': serializer.data})
 
-class DescontarProductoViews(APIView):
-    """Endpoint para descontar unidad en producto"""
-    def get(self, request, id_producto,format = None):
-        producto = get_object_or_404(Producto, pk=id_producto)
-        if producto.cantidad > 0:
-            producto.descontar()
-            return Response(status=status.HTTP_204_NO_CONTENT)
-        else:
-            return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 class ConfirmarCompraViews(APIView):
-    """Endpoint para descontar unidad en producto"""
+    """Endpoint para registrar la compra"""
     def post(self, request,format = None):
         data = request.data
         usuario = request.user
-        comprador = 'CF'
+        comprador = str(usuario)
 
-        if not usuario.is_anonymous:
-            comprador = usuario.first_name
+        if usuario.is_anonymous:
+            comprador = 'CF'
 
         with transaction.atomic():
 
@@ -108,5 +120,29 @@ class ConfirmarCompraViews(APIView):
                         subtotal=producto.precio
                     )
                     total += producto.precio
-                venta.total = total
+            venta.total = Decimal(total)
+            venta.save()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+class ReporteVentaTotalViews(APIView):
+    def get(self, request,format = None):
+        usuario = request.user
+        total_ventas = Venta.objects.filter(usuario=usuario).aggregate(Avg('total'))
+
+        total_decimal = "{:.2f}".format( total_ventas['total__avg'])
+
+        return Response({'resultados': total_decimal})
+
+
+class ReportePorProductoViews(APIView):
+    def get(self, request,format = None):
+        usuario = request.user
+
+        ventas = Venta.objects.filter(usuario=usuario)
+        productos_total = Detalle.objects.all().filter(venta_id__in=ventas).values('producto__nombre').annotate(total=Sum('subtotal')).order_by('subtotal')
+
+        for a in productos_total:
+            print(a)
+
+        return Response({'resultados': productos_total})

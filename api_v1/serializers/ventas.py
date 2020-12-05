@@ -15,3 +15,23 @@ class DetalleSerializer(serializers.ModelSerializer):
     class Meta:
         model = Detalle
         fields = '__all__'
+
+
+class ReportePorProductoSerializer(serializers.ModelSerializer):
+    id = serializers.IntegerField(read_only=True)
+    total = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Detalle
+        fields = [
+            'id',
+            'producto',
+            'total',
+        ]
+
+    def get_total(self, obj):
+        request = self.context.get('request')
+        print("\n \n \n")
+        print(request.user)
+        print("\n \n \n")
+        return str("aaaaa")

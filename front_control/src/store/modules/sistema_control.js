@@ -8,7 +8,9 @@ export const state = {
     // eslint-disable-next-line
     catalogos: [],
     productos: [],
-    carrito: []
+    carrito: [],
+    reporte_total: 0,
+    reporte_por_producto: []
 }
 
 export const getters = {
@@ -29,6 +31,12 @@ export const mutations = {
     },
     SET_LIMPIAR_CARRITO(state) {
         state.carrito = []
+    },
+    SET_REPORTE_TOTAL(state, reporte_total) {
+        state.reporte_total = reporte_total
+    },
+    SET_REPORTE_POR_PRODUCTO(state, reporte_por_producto) {
+        state.reporte_por_producto = reporte_por_producto
     }
 }
 
@@ -62,21 +70,9 @@ export const actions = {
     quitarCarrito({ commit, dispatch, state }, index) {
         commit('SET_QUITAR_CARRITO', index)
     },
-    // eslint-disable-next-line
-    /*limpiarCarrito({ commit, dispatch, state }) {
-        commit('SET_CARRITO')
-    },*/
-    // eslint-disable-next-line
-    /*confirmarCompra({ commit, dispatch, state }) {
-        state.carrito.map(async productos => {
-            return await apiServiceNimd.descontarProductos(productos.id)
-                .then(response => {
-                    // eslint-disable-next-line
-                    console.log(response)
-                })
-        })
-        commit('SET_LIMPIAR_CARRITO')
-    },*/
+
+    /* Comportamiento para las compras*/
+
     // eslint-disable-next-line
     async confirmarCompra({ commit, dispatch, state }) {
         return await apiServiceNimd.confirmarCompra(state.carrito)
@@ -84,6 +80,27 @@ export const actions = {
                 // eslint-disable-next-line
                 console.log(response)
                 commit('SET_LIMPIAR_CARRITO')
+            })
+    },
+
+    /* Comportamientos para reporte */
+
+    // eslint-disable-next-line
+    async obtenerReporteTotal({ commit, dispatch, state }) {
+        return await apiServiceNimd.getReporteTotal()
+            .then(response => {
+                // eslint-disable-next-line
+                console.log(response)
+                commit('SET_REPORTE_TOTAL', response.resultados)
+            })
+    },
+    // eslint-disable-next-line
+    async obtenerReportePorProducto({ commit, dispatch, state }) {
+        return await apiServiceNimd.getReportePorProducto()
+            .then(response => {
+                // eslint-disable-next-line
+                console.log(response)
+                commit('SET_REPORTE_POR_PRODUCTO', response.resultados)
             })
     },
 }

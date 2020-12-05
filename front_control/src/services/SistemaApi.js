@@ -42,5 +42,16 @@ export class APIServiceNimd {
         return axios.post(url, datos, headers).then(response => response.data);
     }
 
+     /* REPORTES */
+     getReporteTotal() {
+        const url = `/api/v1/reporte-total/`
+        return axios.get(url, headers).then(response => response.data);
+    }
+
+    getReportePorProducto() {
+        const url = `/api/v1/reporte-producto/`
+        return axios.get(url, headers).then(response => response.data);
+    }
+
 
 }

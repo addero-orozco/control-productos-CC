@@ -5,7 +5,7 @@
                 <div id="desktop_bar" class="ui left fixed inverted vertical menu">
                     <a class="item" @click="componente='Catalogo'">Catalogos</a>
                     <a class="item">Productos</a>
-                    <a class="item">Reportes</a>
+                    <a class="item" @click="componente='ReportePorProducto'">Reportes</a>
                     <a class="item" @click="componente='Carrito'">Carrito ({{productosCarrito}})</a>
                 </div>
             </div>
@@ -25,13 +25,17 @@ import { mapState } from 'vuex'
 import Catalogo from '@/components/productos/Catalogo'
 import Productos from '@/components/productos/Productos'
 import Carrito from '@/components/ventas/Carrito'
+import ReporteTotal from '@/components/reportes/ReporteTotal'
+import ReportePorProducto from '@/components/reportes/ReportePorProducto'
 
 export default {
     name: 'Contenedor-principal',
     components: {
         Catalogo,
         Productos,
-        Carrito
+        Carrito,
+        ReporteTotal,
+        ReportePorProducto
     },
     props: {
         msg: String
