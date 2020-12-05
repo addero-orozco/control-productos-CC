@@ -22,13 +22,47 @@
                 </div>
                 <div class="extra content">
                 <div class="ui two buttons">
-                    <div class="ui green button" v-if="producto.cantidad > 0" @click="agregar_carrito(producto)">Comprar</div>
+                    <div class="ui green button" v-if="producto.cantidad > 0" @click="abrir_modal(producto)">Comprar</div>
                     <div class="ui basic red button" v-else>Sin existencias</div>
                 </div>
                 </div>
             </div>
         </div>
-        <MensajePositivo v-show="mostrando_mensaje == true"/>
+
+
+
+
+
+
+
+<!-- MODAL -->
+    <modal ref="modalName">
+      <template v-slot:header>
+        <h1>Abregar producto al carrito</h1>
+      </template>
+
+      <template v-slot:body>
+        <p>Clic en confirmar.</p>
+      </template>
+
+      <template v-slot:footer>
+        <div>
+            <button class="ui green button" @click="agregar_carrito()">Agregar</button>
+            <button class="ui grey button" @click="$refs.modalName.closeModal()">Cancelar</button>
+        </div>
+      </template>
+    </modal>
+
+
+
+
+
+
+
+
+
+
+
     </div>
 </template>
 
@@ -36,20 +70,19 @@
 
 import { mapState } from 'vuex'
 import store from '@/store/index'
-
-import MensajePositivo from '@/components/MensajePositivo'
+import Modal from "@/components/Modal";
 
 export default {
     name: 'Productos',
     components: {
-        MensajePositivo
+        Modal
     },
     props: {
         accion: Number
 	},
     data() {
         return {
-            mostrando_mensaje: false
+            producto: {}
         }
     },
     beforeMount() {
@@ -65,11 +98,21 @@ export default {
         ver_accion(id_vendedor) {
             this.$emit('clic_boton', 'Productos', id_vendedor)
         },
-        agregar_carrito(producto) {
-            store.dispatch('sistema_control/agregarCarrito', producto)
-            this.mostrando_mensaje = true
-            setTimeout(() => this.mostrando_mensaje = false, 2000)
+        agregar_carrito() {
+            store.dispatch('sistema_control/agregarCarrito', this.producto)
+            this.$refs.modalName.closeModal()
         },
+        abrir_modal(producto){
+           this.producto = producto
+           this.$refs.modalName.openModal()
+       }
     }
 }
 </script>
+
+/* MODAL */
+<style lang="scss">
+.overflow-hidden {
+  overflow: hidden;
+}
+</style>

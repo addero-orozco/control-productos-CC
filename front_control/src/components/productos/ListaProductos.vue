@@ -25,18 +25,7 @@
             </div>
         </div>
 
-
-
-
-
-
-
-
-
-
-
-
-
+<!-- MODAL -->
     <modal ref="modalName">
       <template v-slot:header>
         <h1>Eliminar producto</h1>
@@ -48,8 +37,8 @@
 
       <template v-slot:footer>
         <div>
-          <button class="ui grey button" @click="$refs.modalName.closeModal()">Cancelar</button>
-          <button class="ui orange button" @click="eliminar_producto()">Eliminar</button>
+            <button class="ui orange button" @click="eliminar_producto()">Eliminar</button>
+            <button class="ui grey button" @click="$refs.modalName.closeModal()">Cancelar</button>
         </div>
       </template>
     </modal>
