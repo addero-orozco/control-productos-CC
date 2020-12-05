@@ -16,7 +16,7 @@ urlpatterns_no_suffix = [
     path('catalogos/', productos.CatalogosVendedoresViews.as_view(), name='catalogos'),
     path('catalogo-vendedor/', productos.VendedorCatalogoViews.as_view(), name='catalogo-vendedor'),
     path('productos-catalogo/<int:id_vendedor>/', productos.ProductosVendedorViews.as_view(), name='productos-catalogo'),
-    path('venta-confirmar/', productos.ConfirmarCompraViews.as_view(), name='venta-confirmar'),
+    path('venta-confirmar/<int:id_vendedor>/', productos.ConfirmarCompraViews.as_view(), name='venta-confirmar'),
     path('reporte-total/', productos.ReporteVentaTotalViews.as_view(), name='reporte-total'),
     path('reporte-producto/', productos.ReportePorProductoViews.as_view(), name='reporte-producto'),
 ]

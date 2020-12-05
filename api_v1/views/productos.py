@@ -17,7 +17,7 @@ from rest_framework import status
 from productos.models import Producto
 from ventas.models import Venta, Detalle
 from api_v1.serializers.productos import ProductoSerializer, VendedoresCatalogoSerializer
-from api_v1.serializers.ventas import ReportePorProductoSerializer
+
 import json
 from decimal import Decimal
 
@@ -76,7 +76,7 @@ class ProductosVendedorViews(APIView):
 
 class ConfirmarCompraViews(APIView):
     """Endpoint para registrar la compra"""
-    def post(self, request,format = None):
+    def post(self, request, id_vendedor, format = None):
         data = request.data
         usuario = request.user
         comprador = str(usuario)
@@ -85,9 +85,9 @@ class ConfirmarCompraViews(APIView):
             comprador = 'CF'
 
         with transaction.atomic():
-
+            user = User.objects.get(pk=id_vendedor)
             venta = Venta.objects.create(
-                usuario=usuario,
+                usuario=user,
                 comprador=comprador,
                 total=0
             )

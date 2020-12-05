@@ -37,8 +37,8 @@ export class APIServiceNimd {
     }
 
     /* Confirmar compra*/
-    confirmarCompra(datos) {
-        const url = `/api/v1/venta-confirmar/`
+    confirmarCompra(idVendedor, datos) {
+        const url = `/api/v1/venta-confirmar/${idVendedor}/`
         return axios.post(url, datos, headers).then(response => response.data);
     }
 

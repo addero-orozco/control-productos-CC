@@ -10,7 +10,8 @@ export const state = {
     productos: [],
     carrito: [],
     reporte_total: 0,
-    reporte_por_producto: []
+    reporte_por_producto: [],
+    idVendedor: 0
 }
 
 export const getters = {
@@ -37,6 +38,9 @@ export const mutations = {
     },
     SET_REPORTE_POR_PRODUCTO(state, reporte_por_producto) {
         state.reporte_por_producto = reporte_por_producto
+    },
+    SET_ID_VENDEDOR(state, idVendedor) {
+        state.idVendedor = idVendedor
     }
 }
 
@@ -75,7 +79,7 @@ export const actions = {
 
     // eslint-disable-next-line
     async confirmarCompra({ commit, dispatch, state }) {
-        return await apiServiceNimd.confirmarCompra(state.carrito)
+        return await apiServiceNimd.confirmarCompra(state.idVendedor, state.carrito)
             .then(response => {
                 // eslint-disable-next-line
                 console.log(response)

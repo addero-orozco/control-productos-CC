@@ -59,6 +59,7 @@ export default {
     },
     methods: {
         ver_accion(id_vendedor) {
+            store.commit('sistema_control/SET_ID_VENDEDOR', id_vendedor)
             this.$emit('clic_boton', 'Productos', id_vendedor)
         }
     }
