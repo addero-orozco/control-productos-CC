@@ -11,7 +11,8 @@ export const state = {
     carrito: [],
     reporte_total: 0,
     reporte_por_producto: [],
-    idVendedor: 0
+    idVendedor: 0,
+    catalogo_vendedor: []
 }
 
 export const getters = {
@@ -41,10 +42,15 @@ export const mutations = {
     },
     SET_ID_VENDEDOR(state, idVendedor) {
         state.idVendedor = idVendedor
+    },
+    SET_CATALOGO_VENDEDOR(state, catalogo_vendedor) {
+        state.catalogo_vendedor = catalogo_vendedor
     }
 }
 
 export const actions = {
+    /* Comportamientos para los catalogos */
+
     // eslint-disable-next-line
     async obtenerCatalogo({ commit, dispatch, state }) {
         return await apiServiceNimd.getCatalogos()
@@ -54,6 +60,18 @@ export const actions = {
                 commit('SET_CATALOGOS', response.resultados)
             })
     },
+    // eslint-disable-next-line
+    async obtenerCatalogoVendedor({ commit, dispatch, state }) {
+        return await apiServiceNimd.getCatalogoVendedor()
+            .then(response => {
+                // eslint-disable-next-line
+                //console.log(response)
+                commit('SET_CATALOGO_VENDEDOR', response.resultados)
+            })
+    },
+
+    /* Comportamientos para los productos */
+
     // eslint-disable-next-line
     async obtenerProductos({ commit, dispatch, state }, idVendedor) {
         return await apiServiceNimd.getProductosCatalogo(idVendedor)

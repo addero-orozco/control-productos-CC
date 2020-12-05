@@ -17,6 +17,11 @@ export class APIServiceNimd {
         return axios.get(url, headers).then(response => response.data);
     }
 
+    getCatalogoVendedor() {
+        const url = `/api/v1/catalogo-vendedor/`
+        return axios.get(url, headers).then(response => response.data);
+    }
+
     /* Obtener todos los productos del catalogo del vendedor*/
     getProductosCatalogo(idVendedor) {
         const url = `/api/v1/productos-catalogo/${idVendedor}/`
@@ -51,6 +56,5 @@ export class APIServiceNimd {
         const url = `/api/v1/reporte-producto/`
         return axios.get(url, headers).then(response => response.data);
     }
-
 
 }

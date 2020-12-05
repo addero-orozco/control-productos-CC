@@ -4,14 +4,12 @@
             <div class="pusher">
                 <div id="desktop_bar" class="ui left fixed inverted vertical menu">
                     <a class="item" @click="componente='Catalogo'">Catalogos</a>
-                    <a class="item">Productos</a>
+                    <a class="item" @click="componente='ContenedorProductos'">Productos</a>
                     <a class="item" @click="componente='ReportePorProducto'">Reportes</a>
                     <a class="item" @click="componente='Carrito'">Carrito ({{productosCarrito}})</a>
                 </div>
             </div>
         </div>
-
-        <!-- <catalogo/> -->
 
         <component :is="componente" v-if="componente" @clic_boton="cambiarComponente" :accion="accion" style="padding-bottom:20px;padding-top:20px;"/>
 
@@ -27,6 +25,7 @@ import Productos from '@/components/productos/Productos'
 import Carrito from '@/components/ventas/Carrito'
 import ReporteTotal from '@/components/reportes/ReporteTotal'
 import ReportePorProducto from '@/components/reportes/ReportePorProducto'
+import ContenedorProductos from '@/components/productos/Contenedor'
 
 export default {
     name: 'Contenedor-principal',
@@ -35,7 +34,8 @@ export default {
         Productos,
         Carrito,
         ReporteTotal,
-        ReportePorProducto
+        ReportePorProducto,
+        ContenedorProductos
     },
     props: {
         msg: String
