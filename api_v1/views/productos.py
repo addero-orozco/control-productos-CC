@@ -52,22 +52,6 @@ class CatalogosVendedoresViews(APIView):
         usuario = request.user
         vendedores = User.objects.all()
         serializer = VendedoresCatalogoSerializer(vendedores, many = True)
-
-        ##p=Sale.objects.all().values('item__category__name').order_by('item__category__name').annotate(total=Sum('quantity'))
-        p = Venta.objects.filter(usuario=usuario).aggregate(Avg('total'))
-        print("\n")
-        #print(p)
-        print("\n")
-        print("\n")
-        ventas = Venta.objects.filter(usuario=usuario)
-        #indicadores = Detalle.objects.select_related('producto').filter().order_by('id')
-        produ = Detalle.objects.all().filter(venta_id__in=ventas).values('producto__nombre').annotate(total=Sum('subtotal')).order_by('subtotal')
-        for pro in produ:
-            print(pro)
-        print("\n")
-        print("\n")
-        print("\n")
-
         return Response({'resultados': serializer.data})
 
 
@@ -128,11 +112,14 @@ class ConfirmarCompraViews(APIView):
 class ReporteVentaTotalViews(APIView):
     def get(self, request,format = None):
         usuario = request.user
-        total_ventas = Venta.objects.filter(usuario=usuario).aggregate(Avg('total'))
+        total_venta = Venta.objects.all().filter(usuario=usuario).values('usuario__first_name').annotate(total_total=Sum('total'))
 
-        total_decimal = "{:.2f}".format( total_ventas['total__avg'])
+        total = 0
+        for elemento in total_venta:
+            total = elemento['total_total']
 
-        return Response({'resultados': total_decimal})
+
+        return Response({'resultados': total})
 
 
 class ReportePorProductoViews(APIView):
@@ -141,8 +128,5 @@ class ReportePorProductoViews(APIView):
 
         ventas = Venta.objects.filter(usuario=usuario)
         productos_total = Detalle.objects.all().filter(venta_id__in=ventas).values('producto__nombre').annotate(total=Sum('subtotal')).order_by('subtotal')
-
-        for a in productos_total:
-            print(a)
 
         return Response({'resultados': productos_total})
