@@ -48,10 +48,8 @@ def user_login(request):
             if user.is_active:
                 login(request, user)
                 return redirect('ventas:dashboard')
-            else:
-                return HttpResponse("Your Rango account is disabled.")
         else:
-            return HttpResponse("Invalid login details supplied.")
+            return redirect('error_autenticacion')
     else:
         return render(request, template)
 
@@ -59,3 +57,7 @@ def user_login(request):
 def user_logout(request):
     logout(request)
     return redirect('ventas:dashboard')
+
+def auth_error(request):
+    template = 'base/error_auth.html'
+    return render(request, template, {})
