@@ -30,5 +30,17 @@ export class APIServiceNimd {
         return axios.get(url, headers).then(response => response.data);
     }
 
+    /* Descontar de productos*/
+    descontarProductos(idProducto) {
+        const url = `/api/v1/productos-descontar/${idProducto}/`
+        return axios.get(url, headers).then(response => response.data);
+    }
+
+    /* Confirmar compra*/
+    confirmarCompra(datos) {
+        const url = `/api/v1/venta-confirmar/`
+        return axios.post(url, datos, headers).then(response => response.data);
+    }
+
 
 }

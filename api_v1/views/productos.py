@@ -1,3 +1,6 @@
+from django.db import transaction
+from django.shortcuts import get_object_or_404
+
 from rest_framework.authentication import SessionAuthentication, BasicAuthentication
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
@@ -9,11 +12,10 @@ from rest_framework.decorators import api_view
 from rest_framework.reverse import reverse
 from rest_framework import status
 
-from django.shortcuts import get_object_or_404
-
 from productos.models import Producto
+from ventas.models import Venta, Detalle
 from api_v1.serializers.productos import ProductoSerializer, VendedoresCatalogoSerializer
-
+import json
 
 from django.contrib.auth import get_user_model
 User = get_user_model()
@@ -62,7 +64,6 @@ class ProductosVendedorViews(APIView):
     """Endpoint para obtener todos los productos de un vendedor"""
     def get(self, request, id_vendedor,format = None):
         vendedor = request.user
-        print(vendedor)
         producto = Producto.objects.filter(usuario__id=id_vendedor)
         serializer = ProductoSerializer(producto, many = True)
         return Response({'resultados': serializer.data})
@@ -76,3 +77,36 @@ class DescontarProductoViews(APIView):
             return Response(status=status.HTTP_204_NO_CONTENT)
         else:
             return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+class ConfirmarCompraViews(APIView):
+    """Endpoint para descontar unidad en producto"""
+    def post(self, request,format = None):
+        data = request.data
+        usuario = request.user
+        comprador = 'CF'
+
+        if not usuario.is_anonymous:
+            comprador = usuario.first_name
+
+        with transaction.atomic():
+
+            venta = Venta.objects.create(
+                usuario=usuario,
+                comprador=comprador,
+                total=0
+            )
+            total = 0
+            for elemento in data:
+                id_producto = elemento['id']
+                producto = get_object_or_404(Producto, pk=id_producto)
+                if producto.cantidad > 0:
+                    producto.descontar()
+
+                    Detalle.objects.create(
+                        venta=venta,
+                        producto=producto,
+                        subtotal=producto.precio
+                    )
+                    total += producto.precio
+                venta.total = total
+        return Response(status=status.HTTP_204_NO_CONTENT)
