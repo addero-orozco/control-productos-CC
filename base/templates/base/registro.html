@@ -1,0 +1,48 @@
+{% extends 'base/base.html' %}
+
+{% block contenido %}
+    <div class="ui text container">
+        <div class="ui middle aligned lefth aligned grid">
+            <div class="column">
+                <h2 class="ui image header">
+                <div class="content">
+                    Registro
+                </div>
+                </h2>
+                <form id="user_form" method="post" action="{% url 'registro' %}" enctype="multipart/form-data" class="ui large form">
+                    {% csrf_token %}
+                        <div class="ui stacked secondary  segment">
+                            <div class="field">
+                            <label>Nombre de usuario</label>
+                            {{ user_form.username}}
+                        </div>
+                        <div class="field">
+                            <label>Email</label>
+                            {{ user_form.email}}
+                        </div>
+                        <div class="field">
+                            <label>Nombre</label>
+                            {{ user_form.first_name}}
+                        </div>
+                        <div class="field">
+                            <label>Apellido</label>
+                            {{ user_form.last_name}}
+                        </div>
+                        <div class="field">
+                            <label>Contraseña</label>
+                            {{ user_form.password}}
+                        </div>
+                        {{ profile_form.as_p }}
+
+
+                        <input type="submit" value="Ingresar" class="ui fluid large teal submit button">
+                    </div>
+
+                    <div class="ui error message"></div>
+
+                </form>
+
+            </div>
+        </div>
+    </div>
+{% endblock %}
