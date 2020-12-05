@@ -19,7 +19,7 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 // Si se quiere servir el bundle desde el repositorio en CDN pero el archivo
 // .env.local existe, dejar el archivo vacío.
 
-const dirProd = process.env.VUE_APP_PUBLIC_PATH || 'https://nyc3.digitaloceanspaces.com/nimd/static/';
+const dirProd = process.env.VUE_APP_PUBLIC_PATH || 'https://nyc3.digitaloceanspaces.com/ejemplo/static/';
 
 module.exports = {
     //publicPath: 'http://0.0.0.0:8080/',
