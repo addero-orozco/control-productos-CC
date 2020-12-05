@@ -21,22 +21,83 @@
                 </div>
                 <div class="extra content">
                 <div class="ui two buttons">
-                    <div class="ui basic red button" @click="quitar_carrito(index)">Quitar</div>
+                    <div class="ui basic red button" @click="abrir_modal(index)">Quitar</div>
                 </div>
                 </div>
             </div>
         </div>
-
-        <MensajeAdvertencia v-show="mostrando_mensaje == true"/>
-        <MensajePositivo v-show="mensaje_confirmacion == true"/>
 
         <div class="ui message" v-if="productos.length > 0">
             <div class="ui center aligned header">
                 Confirmar compra
             </div>
-            <div class="ui green button" @click="confirmar_compra()">Comprar</div>
-            <div class="ui orange button" @click="cancelar_carrito()">Cancelar</div>
+            <div class="ui green button" @click="abrir_modal_confirmar_compra()">Comprar</div>
+            <div class="ui orange button" @click="abrir_modal_cancelar_compra()">Cancelar</div>
         </div>
+
+
+<!-- MODAL -->
+    <modal ref="modalName">
+      <template v-slot:header>
+        <h1>Quitar de carrito</h1>
+      </template>
+
+      <template v-slot:body>
+        <p>Clic en confirmar.</p>
+      </template>
+
+      <template v-slot:footer>
+        <div>
+            <button class="ui orange button" @click="quitar_carrito()">Quitar</button>
+            <button class="ui grey button" @click="$refs.modalName.closeModal()">Cancelar</button>
+        </div>
+      </template>
+    </modal>
+
+
+
+<!-- MODAL -->
+    <modal ref="modalLimpiarCarrito">
+      <template v-slot:header>
+        <h1>Cancelar toda la compra</h1>
+      </template>
+
+      <template v-slot:body>
+        <p>Clic en confirmar.</p>
+      </template>
+
+      <template v-slot:footer>
+        <div>
+            <button class="ui orange button" @click="cancelar_carrito()">Eliminar compra</button>
+            <button class="ui grey button" @click="$refs.modalLimpiarCarrito.closeModal()">Cancelar</button>
+        </div>
+      </template>
+    </modal>
+
+
+
+<!-- MODAL -->
+    <modal ref="modalConfirmarCompra">
+      <template v-slot:header>
+        <h1>Realizar la compra</h1>
+      </template>
+
+      <template v-slot:body>
+        <p>Clic en confirmar.</p>
+      </template>
+
+      <template v-slot:footer>
+        <div>
+            <button class="ui green button" @click="confirmar_compra()">Confirmar</button>
+            <button class="ui grey button" @click="$refs.modalConfirmarCompra.closeModal()">Cancelar</button>
+        </div>
+      </template>
+    </modal>
+
+
+
+
+
 
     </div>
 </template>
@@ -46,19 +107,16 @@
 import { mapState } from 'vuex'
 import store from '@/store/index'
 
-import MensajeAdvertencia from '@/components/MensajeAdvertencia'
-import MensajePositivo from '@/components/MensajePositivo'
+import Modal from "@/components/Modal";
 
 export default {
     name: 'Carrito',
     components: {
-        MensajeAdvertencia,
-        MensajePositivo
+        Modal
     },
     data() {
         return {
-            mostrando_mensaje: false,
-            mensaje_confirmacion: false
+            index_producto: 0
         }
     },
     beforeMount() {
@@ -73,19 +131,33 @@ export default {
     methods: {
         quitar_carrito(index) {
             store.dispatch('sistema_control/quitarCarrito', index)
-            this.mostrando_mensaje = true
-            setTimeout(() => this.mostrando_mensaje = false, 2000)
+            this.$refs.modalName.closeModal()
         },
         confirmar_compra() {
             store.dispatch('sistema_control/confirmarCompra')
-            this.mensaje_confirmacion = true
-            setTimeout(() => this.mensaje_confirmacion = false, 5000)
+            this.$refs.modalConfirmarCompra.closeModal()
         },
         cancelar_carrito() {
             store.commit('sistema_control/SET_LIMPIAR_CARRITO')
-            //this.mensaje_confirmacion = true
-            //setTimeout(() => this.mensaje_confirmacion = false, 5000)
+            this.$refs.modalLimpiarCarrito.closeModal()
         },
+        abrir_modal(index){
+           this.index_producto = index
+           this.$refs.modalName.openModal()
+       },
+       abrir_modal_cancelar_compra(){
+           this.$refs.modalLimpiarCarrito.openModal()
+       },
+       abrir_modal_confirmar_compra(){
+           this.$refs.modalConfirmarCompra.openModal()
+       }
     }
 }
 </script>
+
+/* MODAL */
+<style lang="scss">
+.overflow-hidden {
+  overflow: hidden;
+}
+</style>

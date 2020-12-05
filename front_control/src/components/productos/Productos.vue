@@ -38,7 +38,7 @@
 <!-- MODAL -->
     <modal ref="modalName">
       <template v-slot:header>
-        <h1>Abregar producto al carrito</h1>
+        <h1>Agregar producto al carrito</h1>
       </template>
 
       <template v-slot:body>
