@@ -3,6 +3,12 @@ import axios from 'axios';
 
 const headers = { headers: { 'X-CSRFToken': csrftoken } }
 
+const config = {
+    headers: {
+      'X-CSRFToken': csrftoken,
+      'Content-Type': "application/json",
+    }
+}
 
 const qs = require('qs');
 
@@ -29,6 +35,12 @@ export class APIServiceNimd {
     }
 
     /* Desactivar de productos*/
+    postNuevoProducto(datos) {
+        console.log(config)
+        const url = `/api/v1/productos/`
+        return axios.post(url, datos, config).then(response => response.data);
+    }
+
     getDesactivarProducto(idProducto) {
         const url = `/api/v1/desactivar-producto/${idProducto}/`
         return axios.get(url, headers).then(response => response.data);

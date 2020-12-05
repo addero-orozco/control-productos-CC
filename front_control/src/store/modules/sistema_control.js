@@ -90,6 +90,15 @@ export const actions = {
                 commit('SET_CATALOGO_VENDEDOR', response.resultados)
             })
     },
+    // eslint-disable-next-line
+    async crearProducto({ commit, dispatch, state }, datos) {
+        return await apiServiceNimd.postNuevoProducto(datos)
+            .then(response => {
+                // eslint-disable-next-line
+                console.log(response)
+                //commit('SET_CATALOGO_VENDEDOR', response.resultados)
+            })
+    },
 
     /* Comportamientos para el carrito de compras */
 

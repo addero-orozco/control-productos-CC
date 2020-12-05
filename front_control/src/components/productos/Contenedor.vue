@@ -4,7 +4,7 @@
             <a class="item">
                 <i class="arrow left icon"></i>Regresar
             </a>
-            <a class="active item">
+            <a class="active item" @click="componente='NuevoProducto'">
                 Nuevo
             </a>
         </div>
@@ -19,11 +19,13 @@
 import { mapState } from 'vuex'
 
 import ListaProductos from '@/components/productos/ListaProductos'
+import NuevoProducto from '@/components/productos/Crear'
 
 export default {
     name: 'Contenedor-productos',
     components: {
-        ListaProductos
+        ListaProductos,
+        NuevoProducto
     },
     props: {
         msg: String

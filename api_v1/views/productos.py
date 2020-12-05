@@ -25,24 +25,24 @@ from django.contrib.auth import get_user_model
 User = get_user_model()
 
 
-class ProductoViewSet(
-            viewsets.GenericViewSet,
-            mixins.ListModelMixin,
-            mixins.CreateModelMixin,
-            mixins.RetrieveModelMixin,
-            mixins.UpdateModelMixin,
-            mixins.DestroyModelMixin):
-    """Endpoints para listar, crear y recuperar Producto"""
-    queryset = Producto.objects.all().order_by('id')
-    serializer_class = ProductoSerializer
+# class ProductoViewSet(
+#             viewsets.GenericViewSet,
+#             mixins.ListModelMixin,
+#             mixins.CreateModelMixin,
+#             mixins.RetrieveModelMixin,
+#             mixins.UpdateModelMixin,
+#             mixins.DestroyModelMixin):
+#     """Endpoints para listar, crear y recuperar Producto"""
+#     queryset = Producto.objects.all().order_by('id')
+#     serializer_class = ProductoSerializer
 
 
-    def list(self, request, *args, **kwargs):
-        lookup_url_kwarg = 'id'
-        lookup_field = 'id'
-        queryset = self.filter_queryset(self.get_queryset())
-        serializer = self.get_serializer(queryset, many=True)
-        return Response({'resultados': serializer.data})
+#     def list(self, request, *args, **kwargs):
+#         lookup_url_kwarg = 'id'
+#         lookup_field = 'id'
+#         queryset = self.filter_queryset(self.get_queryset())
+#         serializer = self.get_serializer(queryset, many=True)
+#         return Response({'resultados': serializer.data})
 
 
 class CatalogosVendedoresViews(APIView):
@@ -138,3 +138,11 @@ class DesactivarProductoViews(APIView):
         productos = Producto.objects.filter(usuario=producto.usuario, activo=True)
         serializer = ProductoSerializer(productos, many = True)
         return Response({'resultados': serializer.data}, status=status.HTTP_200_OK)
+
+class ProductosViews(APIView):
+    """Endpoint para productos"""
+    def post(self, request,format = None):
+        serializer = ProductoSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save(usuario=request.user)
+        return Response(status=status.HTTP_201_CREATED)

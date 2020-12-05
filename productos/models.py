@@ -20,7 +20,8 @@ class Producto(models.Model):
                             default=0)
     imagen      = models.ImageField(
                             upload_to='productos_images',
-                            blank=True)
+                            blank=True,
+                            null=True)
     descripcion = models.TextField(
                             default=' ',
                             blank=True,

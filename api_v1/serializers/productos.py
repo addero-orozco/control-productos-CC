@@ -9,7 +9,14 @@ class ProductoSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Producto
-        fields = '__all__'
+        fields = [
+            'id',
+            'nombre',
+            'precio',
+            'cantidad',
+            'descripcion',
+            #'usuario',
+        ]
 
 
 class VendedoresCatalogoSerializer(serializers.ModelSerializer):
