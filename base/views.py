@@ -2,7 +2,8 @@ from django.shortcuts import render, redirect
 from .forms import UserForm, UserPerfilForm
 from django.contrib.auth import authenticate, login
 from django.http import HttpResponse
-
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth import logout
 
 def registro(request):
     template = 'base/registro.html'
@@ -23,7 +24,7 @@ def registro(request):
                 profile.picture = request.FILES['picture']
                 profile.save()
 
-            return redirect('registro')
+            return redirect('login')
     else:
         user_form = UserForm()
         profile_form = UserPerfilForm()
@@ -46,10 +47,15 @@ def user_login(request):
         if user:
             if user.is_active:
                 login(request, user)
-                return HttpResponse("estas adentroooooooooooooooo.")
+                return redirect('ventas:dashboard')
             else:
                 return HttpResponse("Your Rango account is disabled.")
         else:
             return HttpResponse("Invalid login details supplied.")
     else:
         return render(request, template)
+
+@login_required
+def user_logout(request):
+    logout(request)
+    return redirect('ventas:dashboard')
