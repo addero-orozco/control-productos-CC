@@ -1,9 +1,6 @@
 <template>
     <div class="contenedor">
 
-        <a class="item">
-            <i class="arrow left icon"></i>Regresar
-        </a>
         <h2 class="ui lefth header">Productos</h2>
 
         <div class="ui cards">
