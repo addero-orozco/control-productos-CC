@@ -81,6 +81,15 @@ export const actions = {
                 commit('SET_PRODUCTOS', response.resultados)
             })
     },
+    // eslint-disable-next-line
+    async desactivarProducto({ commit, dispatch, state }, idProducto) {
+        return await apiServiceNimd.getDesactivarProducto(idProducto)
+            .then(response => {
+                // eslint-disable-next-line
+                console.log(response)
+                commit('SET_CATALOGO_VENDEDOR', response.resultados)
+            })
+    },
 
     /* Comportamientos para el carrito de compras */
 

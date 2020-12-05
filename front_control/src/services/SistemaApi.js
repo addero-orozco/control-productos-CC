@@ -28,9 +28,9 @@ export class APIServiceNimd {
         return axios.get(url, headers).then(response => response.data);
     }
 
-    /* Descontar de productos*/
-    descontarProductos(idProducto) {
-        const url = `/api/v1/productos-descontar/${idProducto}/`
+    /* Desactivar de productos*/
+    getDesactivarProducto(idProducto) {
+        const url = `/api/v1/desactivar-producto/${idProducto}/`
         return axios.get(url, headers).then(response => response.data);
     }
 

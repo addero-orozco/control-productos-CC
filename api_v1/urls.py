@@ -19,6 +19,7 @@ urlpatterns_no_suffix = [
     path('venta-confirmar/<int:id_vendedor>/', productos.ConfirmarCompraViews.as_view(), name='venta-confirmar'),
     path('reporte-total/', productos.ReporteVentaTotalViews.as_view(), name='reporte-total'),
     path('reporte-producto/', productos.ReportePorProductoViews.as_view(), name='reporte-producto'),
+    path('desactivar-producto/<int:id_producto>/', productos.DesactivarProductoViews.as_view(), name='desactivar-producto'),
 ]
 
 urlpatterns_no_suffix = format_suffix_patterns(urlpatterns_no_suffix)

@@ -18,8 +18,8 @@
                 </div>
                 <div class="extra content">
                 <div class="ui two buttons">
-                    <div class="ui green button" v-if="producto.cantidad > 0" @click="agregar_carrito(producto)">Comprar</div>
-                    <div class="ui basic red button" v-else>Sin existencias</div>
+                    <div class="ui editar button">Editar</div>
+                    <div class="ui orange button" @click="eliminar_producto(producto.id)">Eliminar</div>
                 </div>
                 </div>
             </div>
@@ -50,10 +50,9 @@ export default {
         }
     },
     methods: {
-        /*ver_accion(id_vendedor) {
-            store.commit('sistema_control/SET_ID_VENDEDOR', id_vendedor)
-            this.$emit('clic_boton', 'Productos', id_vendedor)
-        }*/
+       eliminar_producto(idProducto) {
+           store.dispatch('sistema_control/desactivarProducto', idProducto)
+       }
     }
 }
 </script>

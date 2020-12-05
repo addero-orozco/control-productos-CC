@@ -4,7 +4,7 @@
             <div class="pusher">
                 <div id="desktop_bar" class="ui left fixed inverted vertical menu">
                     <a class="item" @click="componente='Catalogo'">Catalogos</a>
-                    <a class="item" @click="componente='ContenedorProductos'">Productos</a>
+                    <a class="item" @click="componente='ContenedorProductos'">Mis Productos</a>
                     <a class="item" @click="componente='ReportePorProducto'">Reportes</a>
                     <a class="item" @click="componente='Carrito'">Carrito ({{productosCarrito}})</a>
                 </div>

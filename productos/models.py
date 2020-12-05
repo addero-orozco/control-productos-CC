@@ -32,10 +32,16 @@ class Producto(models.Model):
                             blank=False,
                             verbose_name='Usuario',
                             on_delete=models.CASCADE)
+    activo      = models.BooleanField(
+                            default=True)
 
     def __str__(self):
         return self.nombre
 
     def descontar(self):
         self.cantidad -= 1
+        self.save()
+
+    def desactivar(self):
+        self.activo = False
         self.save()
