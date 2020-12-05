@@ -25,9 +25,9 @@ module.exports = {
     //publicPath: 'http://0.0.0.0:8080/',
     //outputDir: './dist/',
     publicPath: process.env.NODE_ENV === 'production' ? dirProd : 'http://0.0.0.0:8080/',
-    outputDir: './out_front_estadisticas/',
-    assetsDir: './__assets_front_estadisticas/',
-    indexPath: '__index_front_estadisticas.html',
+    outputDir: './out_front_control/',
+    assetsDir: './__assets_front_control/',
+    indexPath: '__index_front_control.html',
 
     chainWebpack: config => {
 

@@ -3,7 +3,6 @@ import axios from 'axios';
 
 const headers = { headers: { 'X-CSRFToken': csrftoken } }
 
-console.log(headers)
 
 const qs = require('qs');
 
