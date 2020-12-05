@@ -15,7 +15,6 @@ router = DefaultRouter()
 urlpatterns_no_suffix = [
     path('productos/', productos.ProductosViews.as_view(), name='productos'),
     path('productos/<int:id_producto>/', productos.ProductosViews.as_view(), name='productos'),
-    ##path('productos/', productos.nueva_solicitud_cambio, name='productos'),
     path('catalogos/', productos.CatalogosVendedoresViews.as_view(), name='catalogos'),
     path('catalogo-vendedor/', productos.VendedorCatalogoViews.as_view(), name='catalogo-vendedor'),
     path('productos-catalogo/<int:id_vendedor>/', productos.ProductosVendedorViews.as_view(), name='productos-catalogo'),
@@ -23,6 +22,7 @@ urlpatterns_no_suffix = [
     path('reporte-total/', productos.ReporteVentaTotalViews.as_view(), name='reporte-total'),
     path('reporte-producto/', productos.ReportePorProductoViews.as_view(), name='reporte-producto'),
     path('desactivar-producto/<int:id_producto>/', productos.DesactivarProductoViews.as_view(), name='desactivar-producto'),
+    path('usuario-log/', productos.UsuarioLogueadoViews.as_view(), name='usuario-log'),
 ]
 urlpatterns_no_suffix = format_suffix_patterns(urlpatterns_no_suffix)
 

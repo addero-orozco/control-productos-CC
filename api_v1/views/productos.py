@@ -73,6 +73,15 @@ class ProductosVendedorViews(APIView):
         serializer = ProductoSerializer(producto, many = True)
         return Response({'resultados': serializer.data})
 
+class UsuarioLogueadoViews(APIView):
+    """Endpoint para obtener el logueo"""
+    def get(self, request, format = None):
+        usuario = request.user
+        if usuario.is_anonymous:
+            return Response(status=status.HTTP_203_NON_AUTHORITATIVE_INFORMATION)
+        else:
+            return Response(status=status.HTTP_200_OK)
+
 
 class ConfirmarCompraViews(APIView):
     """Endpoint para registrar la compra"""

@@ -4,8 +4,8 @@
             <div class="pusher">
                 <div id="desktop_bar" class="ui left fixed inverted vertical menu">
                     <a class="item" @click="componente='Catalogo'">Catalogos</a>
-                    <a class="item" @click="componente='ContenedorProductos'">Mis Productos</a>
-                    <a class="item" @click="componente='ReportePorProducto'">Reportes</a>
+                    <a class="item" @click="componente='ContenedorProductos'" v-if="log==true">Mis Productos</a>
+                    <a class="item" @click="componente='ReportePorProducto'" v-if="log==true">Reportes</a>
                     <a class="item" @click="componente='Carrito'">Carrito ({{productosCarrito}})</a>
                 </div>
             </div>
@@ -19,6 +19,7 @@
 <script>
 
 import { mapState } from 'vuex'
+import store from '@/store/index'
 
 import Catalogo from '@/components/productos/Catalogo'
 import Productos from '@/components/productos/Productos'
@@ -46,10 +47,16 @@ export default {
             accion: undefined,
         }
     },
+    beforeMount() {
+        store.dispatch('sistema_control/obtenerLogueo')
+    },
     computed: {
         ...mapState(['sistema_control']),
         productosCarrito () {
             return this.sistema_control.carrito.length
+        },
+        log () {
+            return this.sistema_control.logueo
         }
     },
     methods: {

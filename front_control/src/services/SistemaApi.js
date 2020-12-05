@@ -50,6 +50,11 @@ export class APIServiceNimd {
         return axios.get(url, headers).then(response => response.data);
     }
 
+    getLogueo() {
+        const url = `/api/v1/usuario-log/`
+        return axios.get(url, headers).then(response => response.status);
+    }
+
     /* Descontar de productos*/
     descontarProductos(idProducto) {
         const url = `/api/v1/productos-descontar/${idProducto}/`

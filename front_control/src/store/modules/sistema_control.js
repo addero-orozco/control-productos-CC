@@ -12,7 +12,8 @@ export const state = {
     reporte_total: 0,
     reporte_por_producto: [],
     idVendedor: 0,
-    catalogo_vendedor: []
+    catalogo_vendedor: [],
+    logueo: false
 }
 
 export const getters = {
@@ -45,6 +46,10 @@ export const mutations = {
     },
     SET_CATALOGO_VENDEDOR(state, catalogo_vendedor) {
         state.catalogo_vendedor = catalogo_vendedor
+    },
+    SET_LOGUEO(state, logueo) {
+        if (logueo == 203) state.logueo = false
+        else if (logueo == 200) state.logueo = true
     }
 }
 
@@ -129,6 +134,16 @@ export const actions = {
                 // eslint-disable-next-line
                 console.log(response)
                 commit('SET_LIMPIAR_CARRITO')
+            })
+    },
+
+    // eslint-disable-next-line
+    async obtenerLogueo({ commit, dispatch, state }) {
+        return await apiServiceNimd.getLogueo()
+            .then(response => {
+                // eslint-disable-next-line
+                console.log(response)
+                commit('SET_LOGUEO', response)
             })
     },
 
