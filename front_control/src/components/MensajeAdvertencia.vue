@@ -1,8 +1,17 @@
 <template>
     <div class="ui negative message">
         <div class="header">
-            Eliminado
+            Confirmado
         </div>
-        <p>Producto <b>eliminado</b> del carrito.</p>
+        <p>{{mensaje}}.</p>
     </div>
 </template>
+
+<script>
+export default {
+    name: 'MensajePositivo',
+    props: {
+        mensaje: String
+	},
+}
+</script>

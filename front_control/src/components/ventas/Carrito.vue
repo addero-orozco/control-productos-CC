@@ -5,6 +5,9 @@
         </a>
         <h2 class="ui lefth header">Productos del carrito</h2>
 
+        <MensajePositivo v-show="mensaje_confirmacion==true" :mensaje="mensaje" />
+        <MensajeAdvertencia v-show="mensaje_cancelacion==true" :mensaje="mensaje" />
+
         <div class="ui cards">
             <div class="card" v-for="(producto, index) in productos" :key="index">
                 <div class="content">
@@ -32,7 +35,7 @@
                 Confirmar compra
             </div>
             <div class="ui green button" @click="abrir_modal_confirmar_compra()">Comprar</div>
-            <div class="ui orange button" @click="abrir_modal_cancelar_compra()">Cancelar</div>
+            <div class="ui orange button" @click="abrir_modal_cancelar_compra()">Cancelar compra</div>
         </div>
 
 
@@ -108,15 +111,22 @@ import { mapState } from 'vuex'
 import store from '@/store/index'
 
 import Modal from "@/components/Modal";
+import MensajePositivo from '@/components/MensajePositivo'
+import MensajeAdvertencia from '@/components/MensajeAdvertencia'
 
 export default {
     name: 'Carrito',
     components: {
-        Modal
+        Modal,
+        MensajePositivo,
+        MensajeAdvertencia
     },
     data() {
         return {
-            index_producto: 0
+            index_producto: 0,
+            mensaje_confirmacion: false,
+            mensaje: '',
+            mensaje_cancelacion: false
         }
     },
     beforeMount() {
@@ -136,10 +146,20 @@ export default {
         confirmar_compra() {
             store.dispatch('sistema_control/confirmarCompra')
             this.$refs.modalConfirmarCompra.closeModal()
+
+            /* Mensaje de confirmación */
+            this.mensaje_confirmacion = true
+            this.mensaje = 'Compra realizada con éxito'
+            setTimeout(() => this.mensaje_confirmacion = false, 5000)
         },
         cancelar_carrito() {
             store.commit('sistema_control/SET_LIMPIAR_CARRITO')
             this.$refs.modalLimpiarCarrito.closeModal()
+
+            /* Mensaje de cancelación */
+            this.mensaje_cancelacion = true
+            this.mensaje = 'Compra cancelada'
+            setTimeout(() => this.mensaje_cancelacion = false, 5000)
         },
         abrir_modal(index){
            this.index_producto = index
