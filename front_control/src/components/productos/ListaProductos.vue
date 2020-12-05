@@ -19,11 +19,42 @@
                 <div class="extra content">
                 <div class="ui two buttons">
                     <div class="ui editar button" @click="editar_producto(producto)">Editar</div>
-                    <div class="ui orange button" @click="eliminar_producto(producto.id)">Eliminar</div>
+                    <div class="ui orange button" @click="abrir_modal(producto.id)">Eliminar</div>
                 </div>
                 </div>
             </div>
         </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <modal ref="modalName">
+      <template v-slot:header>
+        <h1>Eliminar producto</h1>
+      </template>
+
+      <template v-slot:body>
+        <p>Clic en confirmar.</p>
+      </template>
+
+      <template v-slot:footer>
+        <div>
+          <button class="ui grey button" @click="$refs.modalName.closeModal()">Cancelar</button>
+          <button class="ui orange button" @click="eliminar_producto()">Eliminar</button>
+        </div>
+      </template>
+    </modal>
+
+
     </div>
 </template>
 
@@ -32,12 +63,16 @@
 import { mapState } from 'vuex'
 import store from '@/store/index'
 
+import Modal from "@/components/Modal";
+
 export default {
     name: 'Catalogos-vendedor',
     components: {
+        Modal
     },
     data() {
         return {
+            id_model_eliminar: 0
         }
     },
     beforeMount() {
@@ -50,12 +85,24 @@ export default {
         }
     },
     methods: {
-       eliminar_producto(idProducto) {
-           store.dispatch('sistema_control/desactivarProducto', idProducto)
+       eliminar_producto() {
+           store.dispatch('sistema_control/desactivarProducto', this.id_model_eliminar)
+           this.$refs.modalName.closeModal()
        },
        editar_producto(producto) {
            this.$emit('clic_boton', 'ProductoEditar', producto)
+       },
+       abrir_modal(id_producto){
+           this.id_model_eliminar = id_producto
+           this.$refs.modalName.openModal()
        }
     }
 }
 </script>
+
+/* MODAL */
+<style lang="scss">
+.overflow-hidden {
+  overflow: hidden;
+}
+</style>

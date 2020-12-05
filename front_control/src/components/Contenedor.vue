@@ -13,6 +13,19 @@
 
         <component :is="componente" v-if="componente" @clic_boton="cambiarComponente" :accion="accion" style="padding-bottom:20px;padding-top:20px;"/>
 
+
+
+
+
+
+
+
+
+
+
+
+
+
     </div>
 </template>
 
